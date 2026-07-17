@@ -11,6 +11,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 
 from modules.inventario import Inventario
+from modules.kardex import Kardex
+from modules.equipos import Equipos
 
 
 class Dashboard(QWidget):
@@ -129,9 +131,13 @@ class Dashboard(QWidget):
         # Página Inventario
 
         self.inventario = Inventario()
+        self.kardex = Kardex()
+        self.equipos = Equipos()
 
         self.paginas.addWidget(inicio)
         self.paginas.addWidget(self.inventario)
+        self.paginas.addWidget(self.kardex)
+        self.paginas.addWidget(self.equipos)
 
         contenido_layout.addWidget(self.paginas)
 
@@ -143,7 +149,19 @@ class Dashboard(QWidget):
         # =========================
 
         self.btnInventario.clicked.connect(self.abrirInventario)
+        self.btnKardex.clicked.connect(self.abrirKardex)
+        self.btnEquipos.clicked.connect(self.abrirEquipos)
         self.btnSalir.clicked.connect(self.close)
 
     def abrirInventario(self):
+        self.inventario.cargar_datos()
         self.paginas.setCurrentIndex(1)
+
+    def abrirKardex(self):
+        self.kardex._cargar_combo_repuestos()
+        self.kardex.actualizar_vista()
+        self.paginas.setCurrentIndex(2)
+
+    def abrirEquipos(self):
+        self.equipos.cargar_datos()
+        self.paginas.setCurrentIndex(3)

@@ -1,13 +1,13 @@
 import sys
 
 # IMPORTANTE
-from database.database import Database
+from database.database import get_database
 
 from PySide6.QtWidgets import QApplication
 from ui.login import LoginWindow
 
-# Crea la base de datos y las tablas
-Database()
+# Crea la base de datos y las tablas (una sola conexión)
+get_database()
 
 app = QApplication(sys.argv)
 
